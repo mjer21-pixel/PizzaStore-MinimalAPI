@@ -55,4 +55,16 @@ app.MapPut("/pizza/{id}", async (PizzaDb db, Pizza updatePizza, int id) =>
     else return Results.NotFound();    
 });
 
+//Delete a Pizza by ID
+app.MapDelete("/pizza/{id}", async (PizzaDb db, int id) =>
+{
+    var pizza = await db.Pizzas.FindAsync(id);
+    if(pizza != null)
+    {
+        db.Pizzas.Remove(pizza);
+        await db.SaveChangesAsync();
+        return Results.NoContent();
+    }
+    else return Results.NotFound();
+});
 app.Run();
