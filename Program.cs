@@ -29,4 +29,7 @@ if(app.Environment.IsDevelopment())
 
 app.MapGet("/", () => "Hello World!");
 
+//GET all Pizzas
+app.MapGet("/pizzas", async (PizzaDb db) => await db.Pizzas.ToListAsync());
+
 app.Run();
