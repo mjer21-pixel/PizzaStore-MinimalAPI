@@ -40,4 +40,7 @@ app.MapPost("/pizza/{id}", async (PizzaDb db, Pizza pizza) =>
     return Results.Created($"/pizza/{pizza.Id}", pizza);
 });
 
+//Find a Pizza by ID
+app.MapGet("/pizza/{id}", async (PizzaDb db, int id) => await db.Pizzas.FindAsync(id));
+
 app.Run();
