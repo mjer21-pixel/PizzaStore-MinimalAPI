@@ -32,4 +32,12 @@ app.MapGet("/", () => "Hello World!");
 //GET all Pizzas
 app.MapGet("/pizzas", async (PizzaDb db) => await db.Pizzas.ToListAsync());
 
+//ADD a new Pizza
+app.MapPost("/pizza/{id}", async (PizzaDb db, Pizza pizza) =>
+{
+    await db.Pizzas.AddAsync(pizza);
+    await db.SaveChangesAsync();
+    return Results.Created($"/pizza/{pizza.Id}", pizza);
+});
+
 app.Run();
